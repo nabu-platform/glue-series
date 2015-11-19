@@ -97,6 +97,11 @@ public class LambdaSeriesGenerator implements SeriesGenerator<Object> {
 						}
 						return response;
 					}
+
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
 				};
 			}
 		};

@@ -30,6 +30,11 @@ public class StringGenerator implements SeriesGenerator<String> {
 					public String next() {
 						return string.substring(index, ++index);
 					}
+
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
 				};
 			}
 		};

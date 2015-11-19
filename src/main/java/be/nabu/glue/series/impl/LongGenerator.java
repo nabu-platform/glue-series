@@ -29,6 +29,11 @@ public class LongGenerator implements SeriesGenerator<Long> {
 					public Long next() {
 						return current++;
 					}
+
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
 				};
 			}
 		};

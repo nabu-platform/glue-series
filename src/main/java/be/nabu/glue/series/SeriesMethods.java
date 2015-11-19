@@ -45,6 +45,10 @@ public class SeriesMethods {
 					public Object next() {
 						return parent.next();
 					}
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
 				};
 			}
 		};
@@ -65,6 +69,10 @@ public class SeriesMethods {
 					@Override
 					public Object next() {
 						return index++ < limit ? parent.next() : null;
+					}
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
 					}
 				};
 			}
@@ -145,6 +153,11 @@ public class SeriesMethods {
 						else {
 							return null;
 						}
+					}
+
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
 					}
 					
 				};
