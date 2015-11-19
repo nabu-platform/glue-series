@@ -79,7 +79,7 @@ You can take multiple series and combine them using a lambda function by calling
 
 ```python
 fibonacci = lambda(t2: 0, t1: 1, t2 + t1)
-lucas = lambda(t2: 1, t1: 2, t2 + t1)
+lucas = lambda(t2: 2, t1: 1, t2 + t1)
 
 for (limit(10, fold(lambda(x, y, x * y), fibonacci, lucas)))
         echo($value)
@@ -89,15 +89,15 @@ This would print:
 
 ```
 0
-2
+1
 3
-10
-24
-65
-168
-442
-1155
-3026
+8
+21
+55
+144
+377
+987
+2584
 ```
 
 Note that the lambda that is given **must** have as many input parameters as the amount of series passed in.
