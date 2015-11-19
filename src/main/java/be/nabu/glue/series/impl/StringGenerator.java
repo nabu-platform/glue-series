@@ -1,0 +1,43 @@
+package be.nabu.glue.series.impl;
+
+import java.util.Iterator;
+
+import be.nabu.glue.series.api.SeriesGenerator;
+
+public class StringGenerator implements SeriesGenerator<String> {
+
+	private String string;
+
+	public StringGenerator(String string) {
+		this.string = string;
+	}
+	
+	@Override
+	public Iterable<String> newSeries() {
+		return new Iterable<String>() {
+			@Override
+			public Iterator<String> iterator() {
+				return new Iterator<String>() {
+					
+					private int index = 0;
+					
+					@Override
+					public boolean hasNext() {
+						return index < string.length();
+					}
+					
+					@Override
+					public String next() {
+						return string.substring(index, ++index);
+					}
+				};
+			}
+		};
+	}
+
+	@Override
+	public Class<String> getSeriesClass() {
+		return String.class;
+	}
+
+}
