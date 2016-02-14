@@ -106,6 +106,9 @@ public class SeriesMethods {
 			if (object instanceof Iterable) {
 				iterables.add((Iterable<?>) object);
 			}
+			else if (object instanceof Object[]) {
+				iterables.add(Arrays.asList((Object[]) object));
+			}
 			else {
 				iterables.add(unfold(object));
 			}
