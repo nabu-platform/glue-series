@@ -21,6 +21,14 @@ import be.nabu.libs.evaluator.annotations.MethodProviderClass;
 @MethodProviderClass(namespace = "series")
 public class SeriesMethods {
 
+	public static List<?> list(Iterable<?> iterable) {
+		List<Object> objects = new ArrayList<Object>();
+		for (Object single : iterable) {
+			objects.add(single);
+		}
+		return objects;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public static Iterable<?> offset(@GlueParam(name = "limit") final long offset, @GlueParam(name = "series") final Iterable<?> iterable) {
 		return new Iterable() {
@@ -89,6 +97,9 @@ public class SeriesMethods {
 		}
 		else if (series instanceof Lambda) {
 			generator = new LambdaSeriesGenerator((Lambda) series);
+		}
+		else if (series instanceof Object[]) {
+			return Arrays.asList((Object[]) series);
 		}
 		else {
 			throw new IllegalArgumentException("Can not unfold into a series");
