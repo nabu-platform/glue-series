@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import be.nabu.glue.ScriptRuntime;
 import be.nabu.glue.annotations.GlueParam;
@@ -177,6 +178,38 @@ public class SeriesMethods {
 				};
 			}
 		};
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static Map hash(Lambda lambda, Object...objects) throws EvaluationException {
+		if (objects == null || objects.length == 0) {
+			return null;
+		}
+		Map map = new HashMap();
+		if (lambda.getDescription().getParameters().size() != 1) {
+			throw new IllegalArgumentException("The lambda does not have enough parameters to process the hash value");
+		}
+		for (Object object : objects) {
+			LambdaExecutionOperation lambdaOperation = new LambdaExecutionOperation(lambda.getDescription(), lambda.getOperation(), 
+				lambda instanceof EnclosedLambda ? ((EnclosedLambda) lambda).getEnclosedContext() : new HashMap<String, Object>());
+			Object key = lambdaOperation.evaluateWithParameters(ScriptRuntime.getRuntime().getExecutionContext(), object);
+			for (Object single : key instanceof Object[] ? (Object[]) key : new Object[] { key }) {
+				Object current = map.get(single);
+				if (current instanceof List) {
+					((List) current).add(object);
+				}
+				else if (current != null) {
+					List list = new ArrayList();
+					list.add(current);
+					list.add(object);
+					map.put(single, list);
+				}
+				else {
+					map.put(single, object);
+				}
+			}
+		}
+		return map;
 	}
 	
 	private static Iterable<?> toIterable(Object object) {
