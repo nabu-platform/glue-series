@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import be.nabu.glue.ScriptRuntime;
+import be.nabu.glue.annotations.GlueMethod;
 import be.nabu.glue.annotations.GlueParam;
 import be.nabu.glue.api.EnclosedLambda;
 import be.nabu.glue.api.Lambda;
@@ -22,6 +23,7 @@ import be.nabu.libs.evaluator.annotations.MethodProviderClass;
 @MethodProviderClass(namespace = "series")
 public class SeriesMethods {
 
+	@GlueMethod(version = 1)
 	public static List<?> list(Iterable<?> iterable) {
 		List<Object> objects = new ArrayList<Object>();
 		for (Object single : iterable) {
@@ -30,6 +32,7 @@ public class SeriesMethods {
 		return objects;
 	}
 	
+	@GlueMethod(version = 1)
 	@SuppressWarnings("rawtypes")
 	public static Iterable<?> offset(@GlueParam(name = "limit") final long offset, @GlueParam(name = "series") final Iterable<?> iterable) {
 		return new Iterable() {
@@ -63,6 +66,7 @@ public class SeriesMethods {
 		};
 	}
 	
+	@GlueMethod(version = 1)
 	@SuppressWarnings("rawtypes")
 	public static Iterable<?> limit(@GlueParam(name = "limit") final long limit, @GlueParam(name = "series") final Iterable<?> iterable) {
 		return new Iterable() {
@@ -108,6 +112,7 @@ public class SeriesMethods {
 		return generator.newSeries();
 	}
 	
+	@GlueMethod(version = 1)
 	@SuppressWarnings("rawtypes")
 	public static Iterable<?> fold(@GlueParam(name = "lambda") final Lambda lambda, @GlueParam(name = "series") Object...objects) {
 		if (objects == null || objects.length == 0) {
@@ -180,6 +185,7 @@ public class SeriesMethods {
 		};
 	}
 
+	@GlueMethod(version = 1)
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Map hash(Lambda lambda, Object...objects) throws EvaluationException {
 		if (objects == null || objects.length == 0) {
