@@ -12,6 +12,7 @@ import be.nabu.glue.annotations.GlueMethod;
 import be.nabu.glue.annotations.GlueParam;
 import be.nabu.glue.api.EnclosedLambda;
 import be.nabu.glue.api.Lambda;
+import be.nabu.glue.impl.GlueUtils;
 import be.nabu.glue.impl.LambdaMethodProvider.LambdaExecutionOperation;
 import be.nabu.glue.series.api.SeriesGenerator;
 import be.nabu.glue.series.impl.LambdaSeriesGenerator;
@@ -90,6 +91,12 @@ public class SeriesMethods {
 				};
 			}
 		};
+	}
+	
+	public static Object aggregate(final Lambda lambda, Object...objects) {
+		final Iterable<?> series = GlueUtils.toSeries(objects);
+		LambdaSeriesGenerator generator = new LambdaSeriesGenerator(lambda, series);
+		return generator.newSeries();
 	}
 	
 	public static Iterable<?> unfold(@GlueParam(name = "series") Object series) {
