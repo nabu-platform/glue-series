@@ -99,6 +99,12 @@ public class SeriesMethods {
 		return generator.newSeries();
 	}
 	
+	@GlueMethod(version = 2)
+	public static Iterable<?> generate(@GlueParam(name = "series") Object series) {
+		return unfold(series);
+	}
+	
+	@GlueMethod(version = 1)
 	public static Iterable<?> unfold(@GlueParam(name = "series") Object series) {
 		SeriesGenerator<?> generator;
 		if (series instanceof Number) {
