@@ -93,13 +93,14 @@ public class SeriesMethods {
 		};
 	}
 	
+	@GlueMethod(version = 1)
 	public static Object aggregate(final Lambda lambda, Object...objects) {
 		final Iterable<?> series = GlueUtils.toSeries(objects);
 		LambdaSeriesGenerator generator = new LambdaSeriesGenerator(lambda, series);
 		return generator.newSeries();
 	}
 	
-	@GlueMethod(version = 2)
+	@GlueMethod(version = 1)
 	public static Iterable<?> generate(@GlueParam(name = "series") Object series) {
 		return unfold(series);
 	}
